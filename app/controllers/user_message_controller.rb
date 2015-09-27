@@ -35,9 +35,9 @@ class UserMessageController < ApplicationController
 
   def answer_message
     User.where(verified: true).each do |user|
-      UserNotifier.send_answer_email(params[:session][:subject], params[:session][:content], user).deliver
+      NewsLetterSender.send_answer_email(params[:session][:subject], params[:session][:content], user).deliver
     end
-
+    puts ENV["sendgrid_domain"]
     UserNotifier.notify_selected(params[:session][:subject],params[:session][:email]).deliver
     redirect_to :root
   end
