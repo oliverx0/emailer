@@ -37,8 +37,12 @@ class UserMessageController < ApplicationController
     User.where(verified: true).each do |user|
       NewsLetterSender.send_answer_email(params[:session][:subject], params[:session][:content], user).deliver
     end
-    puts ENV["sendgrid_domain"]
-    UserNotifier.notify_selected(params[:session][:subject],params[:session][:email]).deliver
+    UserNotifier.notify_selected(params[:session][:title],params[:session][:email]).deliver
+    message = Message.find_by(email: params[:session][:email], title: params[:session][:title])
+    puts params[:session][:email]
+    puts params[:session][:title]
+    message[:answered] = true
+    message.save
     redirect_to :root
   end
 
