@@ -43,7 +43,15 @@ class UserMessageController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:email, :title, :content)
+    if params[:message]
+      params.require(:message).permit(:email, :title, :content)
+    else
+      message = {}
+      message[:email] = params[:email]
+      message[:title] = params[:title]
+      message[:content] = params[:content]
+      return message
+    end
   end
 
 end

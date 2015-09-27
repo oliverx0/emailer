@@ -40,10 +40,18 @@ class UserSubscriptionController < ApplicationController
         @confirmed = true
       end
     end
+    redirect_to 'http://www.reinaldohoffmancoaching.com'
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    if params[:user]
+      params.require(:user).permit(:name, :email)
+    else
+      user = {}
+      user[:name] = params[:name]
+      user[:email] = params[:email]
+      return user
+    end
   end
 
 end
