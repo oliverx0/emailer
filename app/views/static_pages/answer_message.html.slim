@@ -8,18 +8,18 @@
 
   = render 'text'
 
-h1 Answer
+  h1 Answer
 
-= form_for(:session, url: answer_path) do |f|
-  div.field
-    = f.label :subject
-    br
-    = f.text_field :subject
-  div.field
-    = f.label :content
-    br
-    = f.text_area :content, class: 'text_area'
-    = f.hidden_field :email, value: @message.email
-  div.actions
-    = f.submit
+  = form_for(:session, url: answer_path) do |f|
+    div.field
+      = f.label :subject
+      br
+      = f.text_field :subject
+    div.field
+      = f.label :content
+      br
+      = f.text_area :content, class: 'text_area'
+      = f.hidden_field :email, value: @message.email
+    div.actions
+      = f.submit
 
