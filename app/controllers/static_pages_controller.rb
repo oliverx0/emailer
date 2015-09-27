@@ -10,7 +10,11 @@ class StaticPagesController < ApplicationController
   def answer_message
     if params[:code] == "acae273a5a5c88b46b36d65a25f5f435"
       @message = Message.where(answered: false).order("RANDOM()").first
-      @user = User.find_by(email: @message.email)
+      if !@message.nil?
+        @user = User.find_by(email: @message.email)
+      else
+        flash[:error] = "No messages"
+      end
     else
       flash[:error] = "Wrong code"
     end
