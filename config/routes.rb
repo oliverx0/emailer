@@ -5,15 +5,22 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#home'
+  root 'static_pages#new_user'
 
   # Example of regular route:
-  post 'user' => 'user_subscription#create_user'
-  post 'message' => 'user_message#create_message'
+  post 'users' => 'user_subscription#create_user'
+  post 'messages' => 'user_message#create_message'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   get 'confirm/:confirm_code/:email' => 'user_subscription#confirm_user', constraints: { email: /[^\/]+/ }
   get 'message/:code' => 'user_message#get_message'
+
+
+  get 'users/new' => 'static_pages#new_user'
+  get 'messages/new' => 'static_pages#new_message'
+  get 'answers/new/:code' => 'static_pages#answer_message'
+
+  post 'answer' => 'user_message#answer_message'
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :email, :uniqueness => true, :presence => true
+  validates :email, :uniqueness => true, :presence => true, allow_blank: false
 
   after_save :send_confirmation_email, :unless => :verified?
 

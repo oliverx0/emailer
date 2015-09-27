@@ -34,7 +34,12 @@ class UserMessageController < ApplicationController
   end
 
   def answer_message
+    User.where(verified: true).each do |user|
+      UserNotifier.send_answer_email(params[:session][:subject], params[:session][:content], user).deliver
+    end
 
+    UserNotifier.notify_selected(params[:session][:subject],params[:session][:email]).deliver
+    redirect_to :root
   end
 
   def message_params
